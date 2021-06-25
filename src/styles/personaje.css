@@ -1,0 +1,22 @@
+.centralsz {
+	display: grid;
+	grid-template-columns: 1/6 1/6 4/6;
+	grid-template-rows: auto;
+	grid-template-areas: ". izquierda derecha";
+}
+
+.izquierda {
+	grid-area: izquierda;
+	transform: rotate(-90deg);
+	font-size: 80px;
+	color: white;
+	padding-top: 100px;
+	padding-left: 20px;
+	padding-bottom: 80px;
+	margin: 0px;
+	width: 400px;
+}
+
+.derecha {
+	grid-area: derecha;
+}
