@@ -6,9 +6,11 @@ import { Personajes } from "./js/views/personajes";
 import { Personaje } from "./js/views/personaje";
 import { Planetas } from "./js/views/planetas";
 import { Planeta } from "./js/views/planeta";
+import { Login } from "./js/views/login";
 import injectContext from "./js/store/appContext";
 import { Navbar } from "./js/component/navbar";
 import { Footer } from "./js/component/footer";
+import "./styles/layout.css"
 
 //create your first component
 const Layout = () => {
@@ -17,7 +19,7 @@ const Layout = () => {
 	const basename = process.env.BASENAME || "";
 
 	return (
-		<div className="d-flex flex-column" style={{backgroundColor: "black"}}>
+		<div className="central">
 			<BrowserRouter basename={basename}>
 				<ScrollToTop>
 					<Navbar />
@@ -45,6 +47,9 @@ const Layout = () => {
 						</Route>
 						<Route exact path="/planeta/:new_id">
 							<Planeta />
+						</Route>
+						<Route exact path="/login">
+							<Login />
 						</Route>
 						<Route>
 							<h1>Not found!</h1>

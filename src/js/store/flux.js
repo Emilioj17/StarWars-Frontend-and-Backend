@@ -1,4 +1,4 @@
-const getState = ({ getStore, getActions, setStore }) => {
+const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
 			personajesFavoritos: [],
@@ -8,7 +8,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		actions: {
 			deleteFavoritos: nombre => {
 				const store = getStore();
-				setStore({ personajesFavoritos: store.personajesFavoritos.filter(elemento => elemento != nombre) });
+				setStore({ personajesFavoritos: store.personajesFavoritos.filter(elemento => elemento !== nombre) });
 				return "Hola desde deleteFavoritos";
 			},
 

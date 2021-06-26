@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../../styles/personaje.css";
 
 let listaImagenes = [
 	"https://www.jedipedia.net/w/images/thumb/0/03/Luke_auf_Ahch-To.jpg/495px-Luke_auf_Ahch-To.jpg",
 	"https://www.jedipedia.net/w/images/d/dd/Ep1_c3po_anakin.jpg",
 	"https://www.jedipedia.net/w/images/a/ae/R2-D2_Reperatur.jpg",
-	"https://www.jedipedia.net/w/images/thumb/1/1b/Darth_Vader_auf_Mustafar.jpg/800px-Darth_Vader_auf_Mustafar.jpg",
+	"https://www.jedipedia.net/w/images/thumb/a/a2/Darth_Vader-Tantive_IV.jpg/758px-Darth_Vader-Tantive_IV.jpg",
 	"https://www.jedipedia.net/w/images/thumb/5/5b/Leia_Blaster.jpg/800px-Leia_Blaster.jpg",
 	"https://www.jedipedia.net/w/images/2/2d/Owen.jpg",
 	"https://www.jedipedia.net/w/images/d/df/Beru.jpg",
@@ -15,7 +15,7 @@ let listaImagenes = [
 	"https://www.jedipedia.net/w/images/a/a2/Obi-Wan-Kenobi-oversized-postcard--C10229215.jpg"
 ];
 
-export const Personaje = (/*{ history, location, match, ...props }*/ props) => {
+export const Personaje = (props) => {
 	const [personajes, setPersonajes] = useState({
 		nombre: "",
 		anonacimiento: "",
@@ -24,15 +24,11 @@ export const Personaje = (/*{ history, location, match, ...props }*/ props) => {
 		descripcion: "",
 		genero: ""
 	});
-	// const { new_id } = match.params;
 	const new_id = useParams();
-
-	console.log("Holaxx");
-	console.log(new_id.new_id);
 
 	useEffect(() => {
 		// //Get Data
-		fetch("https://www.swapi.tech/api/people/" + new_id.new_id) //`https://www.swapi.tech/api/people/${new_id}`)
+		fetch("https://www.swapi.tech/api/people/" + new_id.new_id)
 			.then(res => res.json())
 			.then(data => {
 				setPersonajes({
@@ -45,17 +41,16 @@ export const Personaje = (/*{ history, location, match, ...props }*/ props) => {
 				});
 			})
 			.catch(err => console.error(err));
-	}, []);
+	},[]);
 
 	return (
-		<div className="centralsz container">
+		<div className="central container">
 			<div className="izquierda">{personajes.nombre}</div>
 			<div className="derecha card my-3 mx-0 px-0 py-2">
 				<img
 					className="card-img-top rounded mx-auto d-block"
 					src={listaImagenes[new_id.new_id - 1]}
-					alt="Card image cap"
-					style={{ width: "600px" }}
+					alt="Card cap"
 				/>
 				<div className="card-body container">
 					<p className="card-text">

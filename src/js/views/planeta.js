@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import "../../styles/personaje.css";
 
 let listaImagenes = [
@@ -15,7 +15,7 @@ let listaImagenes = [
 	"https://www.jedipedia.net/w/images/thumb/a/a9/Eaw_Kamino.jpg/250px-Eaw_Kamino.jpg"
 ];
 
-export const Planeta = (/*{ history, location, match, ...props }*/ props) => {
+export const Planeta = (props) => {
 	const [personajes, setPersonajes] = useState({
 		nombre: "",
 		diametro: "",
@@ -24,15 +24,11 @@ export const Planeta = (/*{ history, location, match, ...props }*/ props) => {
 		descripcion: "",
 		clima: ""
 	});
-	// const { new_id } = match.params;
 	const new_id = useParams();
-
-	console.log("Holaxx");
-	console.log(new_id.new_id);
 
 	useEffect(() => {
 		// //Get Data
-		fetch("https://www.swapi.tech/api/planets/" + new_id.new_id) //`https://www.swapi.tech/api/people/${new_id}`)
+		fetch("https://www.swapi.tech/api/planets/" + new_id.new_id)
 			.then(res => res.json())
 			.then(data => {
 				console.log(data);
@@ -45,7 +41,7 @@ export const Planeta = (/*{ history, location, match, ...props }*/ props) => {
 					clima: data.result.properties.climate
 				});
 			})
-			.catch(err => (console.error(err), console.log("Error en useEffect")));
+			.catch(err => (console.error(err)));
 	}, []);
 
 	return (
@@ -55,7 +51,7 @@ export const Planeta = (/*{ history, location, match, ...props }*/ props) => {
 				<img
 					className="card-img-top rounded mx-auto d-block"
 					src={listaImagenes[new_id.new_id - 1]}
-					alt="Card image cap"
+					alt="Card cap"
 					style={{ width: "600px" }}
 				/>
 				<div className="card-body container">

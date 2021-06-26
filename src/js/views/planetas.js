@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/personajes.css";
 
@@ -15,7 +15,7 @@ export const Planetas = () => {
 				// console.log(data.results);
 				setPersonajes(data.results);
 			})
-			.catch(err => (console.error(err), console.log("Error en useEffect")));
+			.catch(err => (console.error(err)));
 	}, []);
 
 	const handler = name => {
@@ -40,7 +40,7 @@ export const Planetas = () => {
 		return (
 			<div key={index} className="my-2">
 				<div className="card m-0 p-0" style={{ width: "20vw" }}>
-					<img className="card-img-top" src={listaImagenes[index]} alt="Card image cap" />
+					<img className="card-img-top" src={listaImagenes[index]} alt="Card cap" />
 					<div className="card-body">
 						<h5 className="card-title text-center">{personaje.name}</h5>
 						<Link to={"/planeta/" + personaje.uid} className="btn btn-primary float-left my-3">

@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/personajes.css";
 
@@ -26,7 +26,7 @@ export const Personajes = () => {
 		"https://www.jedipedia.net/w/images/thumb/0/03/Luke_auf_Ahch-To.jpg/495px-Luke_auf_Ahch-To.jpg",
 		"https://www.jedipedia.net/w/images/d/dd/Ep1_c3po_anakin.jpg",
 		"https://www.jedipedia.net/w/images/a/ae/R2-D2_Reperatur.jpg",
-		"https://www.jedipedia.net/w/images/thumb/1/1b/Darth_Vader_auf_Mustafar.jpg/800px-Darth_Vader_auf_Mustafar.jpg",
+		"https://www.jedipedia.net/w/images/thumb/a/a2/Darth_Vader-Tantive_IV.jpg/758px-Darth_Vader-Tantive_IV.jpg",
 		"https://www.jedipedia.net/w/images/thumb/5/5b/Leia_Blaster.jpg/800px-Leia_Blaster.jpg",
 		"https://www.jedipedia.net/w/images/2/2d/Owen.jpg",
 		"https://www.jedipedia.net/w/images/d/df/Beru.jpg",
@@ -37,9 +37,9 @@ export const Personajes = () => {
 
 	const Lista = personajes.map((personaje, index) => {
 		return (
-			<div key={index} className="my-2">
-				<div className="card m-0 p-0" style={{ width: "20vw" }}>
-					<img className="card-img-top" src={listaImagenes[index]} alt="Card image cap" />
+			<div key={index} className="">
+				<div className="card m-0 p-0" style={{ width: "18rem"}}>
+					<img className="card-img-top" src={listaImagenes[index]} alt="Card cap" />
 					<div className="card-body">
 						<h5 className="card-title text-center">{personaje.name}</h5>
 						<Link to={"/personaje/" + personaje.uid} className="btn btn-primary float-left my-3">
@@ -48,9 +48,9 @@ export const Personajes = () => {
 						<Link
 							to="#"
 							onClick={name => handler(personaje.name)}
-							className={`float-right display-4 p-0 m-0 ${
+							className={`float-end btn btn-light my-3 py-0 px-2  ${
 								store.personajesFavoritos.includes(personaje.name) ? "text-warning" : ""
-							}`}>
+							}`} style={{fontSize:"26px"}}>
 							♥
 						</Link>
 					</div>
@@ -61,7 +61,7 @@ export const Personajes = () => {
 
 	return (
 		<>
-			<div className="container bis" id="grid">
+			<div className="m-0" id="grid">
 				{Lista}
 			</div>
 		</>
