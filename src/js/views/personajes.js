@@ -5,6 +5,7 @@ import "../../styles/personajes.css";
 
 export const Personajes = () => {
 	const [personajes, setPersonajes] = useState([]);
+	const [charging, setCharging] = useState(true)
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
@@ -13,6 +14,7 @@ export const Personajes = () => {
 			.then(res => res.json())
 			.then(data => {
 				setPersonajes(data.results);
+				setCharging(false);
 			})
 			.catch(err => console.error(err));
 	}, []);
@@ -37,9 +39,9 @@ export const Personajes = () => {
 
 	const Lista = personajes.map((personaje, index) => {
 		return (
-			<div key={index} className="">
+			<div key={index} style={{backgroundColor: "black"}}>
 				<div className="card m-0 p-0" style={{ width: "18rem"}}>
-					<img className="card-img-top" src={listaImagenes[index]} alt="Card cap" />
+					<img className="card-img-top imgps" src={listaImagenes[index]} alt="Card cap" />
 					<div className="card-body">
 						<h5 className="card-title text-center">{personaje.name}</h5>
 						<Link to={"/personaje/" + personaje.uid} className="btn btn-primary float-left my-3">
@@ -61,6 +63,11 @@ export const Personajes = () => {
 
 	return (
 		<>
+			<div className="d-flex justify-content-center pt-2">
+				<div class="spinner-border text-warning" role="status" style={charging ? { display: "" } : { display: "none" }}>
+					<span class="sr-only"></span>
+				</div>
+			</div>
 			<div className="m-0" id="grid">
 				{Lista}
 			</div>

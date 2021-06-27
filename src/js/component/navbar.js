@@ -11,7 +11,7 @@ export const Navbar = () => {
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-			<div className="container-fluid">
+			<div className="container-fluid navbar-dark bg-dark">
 				<Link className="navbar-brand text-warning mx-5" to="#" style={{ fontSize: "36px" }}>Star Wars</Link>
 				<button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span className="navbar-toggler-icon"></span>
@@ -37,9 +37,12 @@ export const Navbar = () => {
 							<Link className="nav-link disabled" to="#" tabindex="-1" aria-disabled="true">Peliculas</Link>
 						</li>
 					</ul>					
-					<div style={{ float: "right"}}>
+					<div style={{ float: "right" }}>
 						<div class="btn-group">
-							<button type="button" class="btn btn-warning dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontSize: "18px" }}>
+							<div className="m-4">
+								<Link to="/login" style={{ color: "rgba(255, 255, 255, 0.61)", textDecoration:"none" }}>Ingresa</Link>
+							</div>
+							<button type="button" class="btn btn-warning dropdown-toggle m-2" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontSize: "18px" }}>
 								Favoritos: {tamaño.length} <span className="text-danger" style={{ fontSize: "24px" }}>♥</span>
 							</button>
 							<ul class="dropdown-menu">

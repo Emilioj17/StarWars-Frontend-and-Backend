@@ -1,0 +1,37 @@
+footer {
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: auto auto auto auto;
+	grid-template-areas:
+		"footer1"
+		"footer2"
+		"footer3"
+		"footer4";
+}
+
+.footer1 {
+	grid-area: footer1;
+}
+
+.footer2 {
+	grid-area: footer2;
+}
+
+.footer3 {
+	grid-area: footer3;
+}
+
+.footer4 {
+	grid-area: footer4;
+}
+
+@media only screen and (min-width: 700px) {
+	footer {
+		display: grid;
+		grid-template-columns: auto auto auto;
+		grid-template-rows: auto auto;
+		grid-template-areas:
+			"footer1 footer2 footer3"
+			"footer4 footer4 footer4";
+	}
+}
