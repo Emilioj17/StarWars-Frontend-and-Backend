@@ -1,9 +1,7 @@
 const getState = ({ getStore, setStore }) => {
 	return {
 		store: {
-			personajesFavoritos: [],
-			planetasFavoritos: [],
-			navesFavoritos: []
+			personajesFavoritos: []
 		},
 		actions: {
 			deleteFavoritos: nombre => {
@@ -15,6 +13,7 @@ const getState = ({ getStore, setStore }) => {
 			saveFavoritos: nombre => {
 				const store = getStore();
 				setStore({ personajesFavoritos: [...store.personajesFavoritos, nombre] });
+				console.log(store)
 				return "Hola desde saveFavoritos";
 			}
 		}

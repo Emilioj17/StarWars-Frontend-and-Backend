@@ -5,9 +5,15 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Navbar = () => {
-	const { store } = useContext(Context);
+	const { store, actions } = useContext(Context);
 
 	const tamaño = store.personajesFavoritos;
+
+	const Favoritos = tamaño.map((personaje, index) => {
+		return (
+			<li key={index} className="m-1 p-2">{personaje}     <button className="btn btn-danger float-end ms-5" onClick={() => { actions.deleteFavoritos(personaje) }}>⊗</button></li>
+		)
+	})
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -38,18 +44,15 @@ export const Navbar = () => {
 						</li>
 					</ul>					
 					<div style={{ float: "right" }}>
-						<div class="btn-group">
+						<div className="btn-group">
 							<div className="m-4">
 								<Link to="/login" style={{ color: "rgba(255, 255, 255, 0.61)", textDecoration:"none" }}>Ingresa</Link>
 							</div>
-							<button type="button" class="btn btn-warning dropdown-toggle m-2" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontSize: "18px" }}>
+							<button type="button" className="btn btn-warning dropdown-toggle m-2" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontSize: "18px" }}>
 								Favoritos: {tamaño.length} <span className="text-danger" style={{ fontSize: "24px" }}>♥</span>
 							</button>
-							<ul class="dropdown-menu">
-								<li> Uno </li>
-								<li> Uno </li>
-								<li> Uno </li>
-								<li> Uno </li>
+							<ul className="dropdown-menu">
+								{Favoritos}
 							</ul>
 						</div>
 					</div>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import "../../styles/personajes.css";
+import "../../styles/personajes.css"; 
 
 export const Personajes = () => {
 	const [personajes, setPersonajes] = useState([]);
@@ -50,7 +50,7 @@ export const Personajes = () => {
 						<Link
 							to="#"
 							onClick={name => handler(personaje.name)}
-							className={`float-end btn btn-light my-3 py-0 px-2  ${
+							className={`float-end btn btn-light my-3 py-0 px-2 ${
 								store.personajesFavoritos.includes(personaje.name) ? "text-warning" : ""
 							}`} style={{fontSize:"26px"}}>
 							♥

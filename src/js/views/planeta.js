@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "../../styles/personaje.css";
+import "../../styles/planeta.css";
 
 let listaImagenes = [
 	"https://www.jedipedia.net/w/images/thumb/d/d7/Tatoooineause1ig.jpg/250px-Tatoooineause1ig.jpg",
@@ -24,6 +24,7 @@ export const Planeta = (props) => {
 		descripcion: "",
 		clima: ""
 	});
+	const [charging, setCharging] = useState(true)
 	const new_id = useParams();
 
 	useEffect(() => {
@@ -40,33 +41,40 @@ export const Planeta = (props) => {
 					descripcion: data.result.description,
 					clima: data.result.properties.climate
 				});
+				setCharging(false);
 			})
 			.catch(err => (console.error(err)));
 	}, []);
 
 	return (
-		<div className="centralsz container">
-			<div className="izquierda">{personajes.nombre}</div>
-			<div className="derecha card my-3 mx-0 px-0 py-2">
-				<img
-					className="card-img-top rounded mx-auto d-block"
-					src={listaImagenes[new_id.new_id - 1]}
-					alt="Card cap"
-					style={{ width: "600px" }}
-				/>
-				<div className="card-body container">
-					<p className="card-text">
-						{" "}
-						Descripción: {personajes.descripcion}. Diametro: {personajes.diametro} Kg. Terreno:{" "}
-						{personajes.terreno} cm. Población: {personajes.poblacion}.
-					</p>
-					<p className="card-text">
-						Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem fugiat fugit laudantium beatae
-						magni temporibus unde laboriosam tempore, quasi hic harum voluptatem, quae in quod, est nulla
-						dolorum et sapiente.
-					</p>
+		<>
+			<div className="d-flex justify-content-center pt-2">
+				<div class="spinner-border text-warning" role="status" style={charging ? { display: "" } : { display: "none" }}>
+					<span class="sr-only"></span>
 				</div>
 			</div>
-		</div>
+			<div className="centralP container">
+				<div className="izquierdaP pt-2">{personajes.nombre}</div>
+				<div className="derecha card my-3 mx-0 px-0 py-2">
+					<img
+						className="card-img-top rounded imgp"
+						src={listaImagenes[new_id.new_id - 1]}
+						alt="Card cap"
+					/>
+					<div className="card-body container">
+						<p className="card-text">
+							{" "}
+							Descripción: {personajes.descripcion}. Diametro: {personajes.diametro} Kg. Terreno:{" "}
+							{personajes.terreno} cm. Población: {personajes.poblacion}.
+						</p>
+						<p className="card-text">
+							Lorem ipsum dolor, sit amet consectetur adipisicing elit. Autem fugiat fugit laudantium beatae
+							magni temporibus unde laboriosam tempore, quasi hic harum voluptatem, quae in quod, est nulla
+							dolorum et sapiente.
+						</p>
+					</div>
+				</div>
+			</div>
+		</>
 	);
 };

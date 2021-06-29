@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import "../../styles/personajes.css";
+import "../../styles/planetas.css";
 
 export const Planetas = () => {
-	const [personajes, setPersonajes] = useState([]);
+	const [personajes, setPersonajes] = useState([]);	
+	const [charging, setCharging] = useState(true)
 	const { store, actions } = useContext(Context);
 
 	useEffect(() => {
@@ -14,6 +15,7 @@ export const Planetas = () => {
 			.then(data => {
 				// console.log(data.results);
 				setPersonajes(data.results);
+				setCharging(false);
 			})
 			.catch(err => (console.error(err)));
 	}, []);
@@ -38,9 +40,9 @@ export const Planetas = () => {
 
 	const Lista = personajes.map((personaje, index) => {
 		return (
-			<div key={index} className="my-2">
-				<div className="card m-0 p-0" style={{ width: "20vw" }}>
-					<img className="card-img-top" src={listaImagenes[index]} alt="Card cap" />
+			<div key={index} style={{backgroundColor: "black"}}>
+				<div className="card m-0 p-0" style={{ width: "18rem"}}>
+					<img className="rd-img-top imgps" src={listaImagenes[index]} alt="Card cap" />
 					<div className="card-body">
 						<h5 className="card-title text-center">{personaje.name}</h5>
 						<Link to={"/planeta/" + personaje.uid} className="btn btn-primary float-left my-3">
@@ -49,9 +51,9 @@ export const Planetas = () => {
 						<Link
 							to="#"
 							onClick={name => handler(personaje.name)}
-							className={`float-right display-4 p-0 m-0 ${
+							className={`float-end btn btn-light my-3 py-0 px-2 ${
 								store.personajesFavoritos.includes(personaje.name) ? "text-warning" : ""
-							}`}>
+							}`} style={{fontSize:"26px"}}>
 							♥
 						</Link>
 					</div>
@@ -62,7 +64,12 @@ export const Planetas = () => {
 
 	return (
 		<>
-			<div className="container bis" id="grid">
+			<div className="d-flex justify-content-center pt-2">
+				<div class="spinner-border text-warning" role="status" style={charging ? { display: "" } : { display: "none" }}>
+					<span class="sr-only"></span>
+				</div>
+			</div>
+			<div className="m-0" id="grid">
 				{Lista}
 			</div>
 		</>
