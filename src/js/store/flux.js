@@ -30,26 +30,26 @@ const getState = ({ getStore, setStore }) => {
 					.catch(err => console.error(err))
 			},
 
-			logUsuario: (usuario) => {
-				console.log("Hello desde logUsuario");
-				setStore({usuarioActual:[usuario.correo]})
-			},
+			// logUsuario: (usuario) => {
+			// 	console.log("Hello desde logUsuario");
+			// 	setStore({usuarioActual:[usuario.correo]})
+			// },
 
 			getUsuario: () => {
 				// console.log("Hello desde getUsuario");
 				fetch("http://127.0.0.1:5000/api/usuarios", {
-					method: "GET",
-					mode: "no-cors",
+					method: "GET"
 				}).then(res => res.json()).then(data => console.log(data) 
 					// ; { setStore({ bdUsuarios: [data] }) }
 				)
+
+
+				//fetch("http://127.0.0.1:5000/api/usuarios",)
+				//     .then(res => res.json())
+				//     .then(data => {console.log(data);
+				//     }).catch(err => (console.error(err)))
 				
 			},
-
-			// getUsuario2: () => {
-			// 	const store = getStore()
-			// 	console.log(store.bdUsuarios)
-			// }
 			
 		}
 	};

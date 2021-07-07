@@ -65,8 +65,8 @@ export const Planetas = () => {
 	return (
 		<>
 			<div className="d-flex justify-content-center pt-2">
-				<div class="spinner-border text-warning" role="status" style={charging ? { display: "" } : { display: "none" }}>
-					<span class="sr-only"></span>
+				<div className="spinner-border text-warning" role="status" style={charging ? { display: "" } : { display: "none" }}>
+					<span className="sr-only"></span>
 				</div>
 			</div>
 			<div className="m-0" id="grid">

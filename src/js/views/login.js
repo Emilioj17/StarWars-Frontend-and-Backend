@@ -14,18 +14,18 @@ export const Login = (props) => {
 
 
     const handlerIngreso = () => {
-        fetch("http://127.0.0.1:5000/api/usuarios",)
-            .then(res => res.json())
-            .then(data => {console.log(data);
-            })
-			.catch(err => (console.error(err)))
+        // actions.logUsuario(usuario);
+        actions.getUsuario();
+
+
+
+        // fetch("http://127.0.0.1:5000/api/usuarios",)
+        //     .then(res => res.json())
+        //     .then(data => {console.log(data);
+        //     })
+		// 	.catch(err => (console.error(err)))
     }
     
-    const otherHandler = () => {
-        console.log("Hola 2");
-        console.log(usuario);
-    }
-
     return (
         <div className="d-flex justify-content-center">
             <div className="container m-sm-3 m-md-5 p-3 p-md-5" style={{ minHeight: "400px" }}>
@@ -43,7 +43,6 @@ export const Login = (props) => {
                     </div>
                     <div className="d-flex justify-content-center p-2">
                         <button type="button" className="btn btn-warning" onClick={handlerIngreso}>Ingresar</button>
-                        <button type="button" onClick={otherHandler}>Clic</button>
                     </div>
                     <div className="form-text d-flex justify-content-center"><Link to="/Account" className="p-2">Crear Cuenta</Link><Link to="#" className="p-2">Recuperar Cuenta</Link></div>
                 </form>
