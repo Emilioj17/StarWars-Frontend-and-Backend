@@ -8,12 +8,49 @@ export const Navbar = () => {
 	const { store, actions } = useContext(Context);
 
 	const tamaño = store.personajesFavoritos;
+	const nombreUsuario = store.usuarioActual;
 
-	const Favoritos = tamaño.map((personaje, index) => {
+	const Favoritos = () => {
+		if (nombreUsuario != "") {
+			return (
+				<>
+					<button type="button" className="btn btn-warning dropdown-toggle m-2" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontSize: "18px" }}>
+						Favoritos: {tamaño.length} <span className="text-danger" style={{ fontSize: "24px" }}>♥</span>
+					</button>
+					<ul className="dropdown-menu">
+						{FavoritosSub}
+					</ul>
+				</>
+			)
+		} else {
+			return (
+				<>
+				</>
+			)
+		}
+	}
+	
+	const FavoritosSub = tamaño.map((personaje, index) => {
 		return (
 			<li key={index} className="m-1 p-2">{personaje}     <button className="btn btn-danger float-end ms-5" onClick={() => { actions.deleteFavoritos(personaje) }}>⊗</button></li>
 		)
 	})
+
+	const Login = () => {
+		if (nombreUsuario != "") {
+			return (
+				<div className="m-4">
+					<Link to="#" style={{ color: "rgba(255, 255, 255, 0.61)", textDecoration: "none" }}>Bienvenido {nombreUsuario[0]}</Link>
+				</div>
+			)
+		} else{
+			return (
+				<div className="m-4">
+					<Link to="/login" style={{ color: "rgba(255, 255, 255, 0.61)", textDecoration: "none" }}>Ingresa</Link>
+				</div>
+			)
+		}
+	}
 
 	return (
 		<nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -34,26 +71,19 @@ export const Navbar = () => {
 							<Link className="nav-link" aria-current="page" to="/planetas">Planetas</Link>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link disabled" to="#" tabindex="-1" aria-disabled="true">Naves</Link>
+							<Link className="nav-link disabled" to="#" tabIndex="-1" aria-disabled="true">Naves</Link>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link disabled" to="#" tabindex="-1" aria-disabled="true">Especies</Link>
+							<Link className="nav-link disabled" to="#" tabIndex="-1" aria-disabled="true">Especies</Link>
 						</li>
 						<li className="nav-item">
-							<Link className="nav-link disabled" to="#" tabindex="-1" aria-disabled="true">Peliculas</Link>
+							<Link className="nav-link disabled" to="#" tabIndex="-1" aria-disabled="true">Peliculas</Link>
 						</li>
 					</ul>					
 					<div style={{ float: "right" }}>
 						<div className="btn-group">
-							<div className="m-4">
-								<Link to="/login" style={{ color: "rgba(255, 255, 255, 0.61)", textDecoration:"none" }}>Ingresa</Link>
-							</div>
-							<button type="button" className="btn btn-warning dropdown-toggle m-2" data-bs-toggle="dropdown" aria-expanded="false" style={{ fontSize: "18px" }}>
-								Favoritos: {tamaño.length} <span className="text-danger" style={{ fontSize: "24px" }}>♥</span>
-							</button>
-							<ul className="dropdown-menu">
-								{Favoritos}
-							</ul>
+							<Login />
+							<Favoritos />
 						</div>
 					</div>
 				</div>

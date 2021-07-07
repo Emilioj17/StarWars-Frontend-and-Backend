@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 import "../../styles/planetas.css";
 
 export const Planetas = () => {
-	const [personajes, setPersonajes] = useState([]);	
+	const [personajes, setPersonajes] = useState([]);
 	const [charging, setCharging] = useState(true)
 	const { store, actions } = useContext(Context);
 
