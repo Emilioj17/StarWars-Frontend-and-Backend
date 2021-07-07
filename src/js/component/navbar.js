@@ -1,14 +1,21 @@
 import React, { useContext } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 
 export const Navbar = () => {
 	const { store, actions } = useContext(Context);
-
+	const history = useHistory();
 	const tamaño = store.personajesFavoritos;
 	const nombreUsuario = store.usuarioActual;
+
+	const HandlerSalir = () => {
+		actions.salirUsuario();
+		history.push("/home");
+		actions.deleteAllFavoritos();
+
+	}
 
 	const Favoritos = () => {
 		if (nombreUsuario != "") {
@@ -19,6 +26,7 @@ export const Navbar = () => {
 					</button>
 					<ul className="dropdown-menu">
 						{FavoritosSub}
+						<div className="btn btn-secondary" onClick={HandlerSalir}>Salir</div>
 					</ul>
 				</>
 			)

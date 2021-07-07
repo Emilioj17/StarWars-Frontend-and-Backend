@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/personaje.css";
 var regex2="[a-zA-Z0-9]{5,}";
@@ -10,6 +11,16 @@ export const Account = (props) => {
         correo: "",
         clave: ""
     });
+    const history = useHistory();
+
+    useEffect(() => {
+        if (store.ingreso=="uno") {
+            console.log("Hola desde Login useEffect");
+            history.push("/home");
+        } else {
+            console.log(store.ingreso);
+        }
+    })
 
     const handlerIngreso = () => {
 		// console.log(usuario);

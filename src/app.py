@@ -3,20 +3,52 @@ from flask import Flask, jsonify, request, render_template
 from flask_migrate import Migrate
 from flask_cors import CORS
 from models import db, Usuario, Personaje_favorito, Planeta_favorito
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask_jwt_extended import JWTManager
+from werkzeug.security import check_password_hash, generate_password_hash
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db.init_app(app)
 Migrate(app, db)
+app.config["JWT_SECRET_KEY"] = "@alfa123@254alfacentaurizxcvbnm@123456789ASDFGHJKL"
+jwt = JWTManager(app)
 
 # Allow CORS requests to this API
 CORS(app)
 
-# # Main html
-# @app.route('/')
-# def main():
-#     return render_template('index.html')
+
+@app.route('/crearcuenta', methods=['POST'])
+def crear_usuario():
+    request_body = request.data
+    decoded_object = json.loads(request_body)
+    nombre = decoded_object["nombre"]
+    correo = decoded_object["correo"]
+    clave = decoded_object["clave"]
+    usuario = Usuario()
+    usuario.nombre = nombre
+    usuario.correo = correo
+    usuario.clave = generate_password_hash(clave)
+    usuario.save()
+
+    return jsonify(usuario.serialize()), 201
+
+
+@app.route('/login', methods=['POST'])
+def login_usuario():
+    request_body = request.data
+    decoded_object = json.loads(request_body)
+    correo = decoded_object["correo"]
+    clave = decoded_object["clave"]
+    usuario = Usuario.query.filter(correo == Usuario.correo).first()
+    if usuario is not None and check_password_hash(usuario.clave, clave):
+        token = create_access_token(identity=clave)
+        return jsonify(usuario.nombre, token), 200
+    else:
+        return jsonify({"Error": "Clave o Usuario incorrecto"}), 401
 
 
 @app.route('/api/usuarios', methods=['GET', 'POST'])
@@ -34,6 +66,7 @@ def list_usuarios(id=None):
             planetas_favoritos_usuario = list(
                 map(lambda favorito: favorito.serialize(), planetas_favoritos_usuario))
             return jsonify(personajes_favoritos_usuario + planetas_favoritos_usuario), 200
+
         usuarios = Usuario.query.all()
         usuarios = list(map(lambda usuario: usuario.serialize(), usuarios))
         return jsonify(usuarios), 200
@@ -47,10 +80,10 @@ def list_usuarios(id=None):
         usuario = Usuario()
         usuario.nombre = nombre
         usuario.correo = correo
-        usuario.clave = clave
+        usuario.clave = create_access_token(identity=clave)
         usuario.save()
 
-        return jsonify(usuario.serialize())
+        return jsonify(usuario.serialize()), 201
 
 
 # Post a Personaje Favorito según id Usuario

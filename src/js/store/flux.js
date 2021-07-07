@@ -3,56 +3,60 @@ const getState = ({ getStore, setStore }) => {
 		store: {
 			personajesFavoritos: [],
 			usuarioActual: [],
-			bdUsuarios : []
+			ingreso: []
 		},
 		actions: {
 			deleteFavoritos: nombre => {
 				const store = getStore();
 				setStore({ personajesFavoritos: store.personajesFavoritos.filter(elemento => elemento !== nombre) });
-				return "Hola desde deleteFavoritos";
+			},
+
+			deleteAllFavoritos: () => {
+				setStore({ personajesFavoritos: [] })
 			},
 
 			saveFavoritos: nombre => {
 				const store = getStore();
 				setStore({ personajesFavoritos: [...store.personajesFavoritos, nombre] });
-				// console.log(store)
-				return "Hola desde saveFavoritos";
 			},
 
 			postUsuario: (usuario) => {
-				fetch("http://127.0.0.1:5000/api/usuarios", {
+				fetch("http://127.0.0.1:5000/crearcuenta", {
 					method: "POST",
 					body: JSON.stringify({ "nombre": usuario.nombre, "correo": usuario.correo, "clave": usuario.clave })
 				})
 					.then(res => res.json())
-					.then(setStore({usuarioActual:[usuario.nombre, usuario.correo]})
-				)
-					.catch(err => console.error(err))
+					.then(data => {
+						setStore({ usuarioActual: [data.nombre, data.correo] });
+						setStore({ ingreso: ["uno"] });
+					}
+					).catch(error => {
+						console.error("Hay un problemilla", error);
+					}
+					)
 			},
 
-			// logUsuario: (usuario) => {
-			// 	console.log("Hello desde logUsuario");
-			// 	setStore({usuarioActual:[usuario.correo]})
-			// },
-
-			getUsuario: () => {
-				// console.log("Hello desde getUsuario");
-				fetch("http://127.0.0.1:5000/api/usuarios", {
-					method: "GET"
-				}).then(res => res.json()).then(data => console.log(data) 
-					// ; { setStore({ bdUsuarios: [data] }) }
-				)
-
-
-				//fetch("http://127.0.0.1:5000/api/usuarios",)
-				//     .then(res => res.json())
-				//     .then(data => {console.log(data);
-				//     }).catch(err => (console.error(err)))
-				
+			getUsuario: (usuario) => {
+				fetch("http://127.0.0.1:5000/login", {
+					method: "POST",
+					body: JSON.stringify({"correo": usuario.correo, "clave": usuario.clave})
+				}).then(res => {
+					if (res.status === 200) return res.json();
+					else if (res.status === 401) {
+						alert("Usuario o clave Incorrecto");
+					}
+				}).then(data => {
+					setStore({ usuarioActual: [data[0], data[1]] });
+					setStore({ ingreso: ["uno"] });
+					}
+				).catch(error => { console.error("Hay un problemilla", error) })
 			},
-			
-		}
-	};
-};
+
+			salirUsuario: () => {
+				setStore({usuarioActual:[]})
+			}
+		},
+	}
+}
 
 export default getState;
